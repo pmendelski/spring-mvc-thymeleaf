@@ -17,6 +17,12 @@ public class ApplicationInitializer implements WebApplicationInitializer {
 		rootContext.register(WebMvcConfiguration.class);
 		rootContext.setDisplayName("SpringApp");
 
+		// FilterRegistration.Dynamic encodingFilter = servletContext.addFilter(
+		// "CharacterEncodingFilter", new CharacterEncodingFilter());
+		// encodingFilter.setInitParameter("encoding", "UTF-8");
+		// encodingFilter.setInitParameter("forceEncoding", "true");
+		// encodingFilter.addMappingForUrlPatterns(null, false, "/*");
+
 		registerServlets(servletContext, rootContext);
 	}
 

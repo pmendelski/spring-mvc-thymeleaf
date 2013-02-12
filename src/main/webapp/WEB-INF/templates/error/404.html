@@ -1,12 +1,14 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring3-3.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org">
-<head th:include="layout/header :: head">
+<head th:include="layout/head :: head">
 <title>Exacode bootstrap</title>
 </head>
 <body>
-	<div th:substituteby="layout/header :: header"></div>
-	<p th:text="#{error.404}">Page not found</p>
+	<div th:substituteby="layout/navbar :: navbar"></div>
+	<div class="container">
+		<p th:text="#{error.404}">Page not found</p>
+	</div>
 	<div th:substituteby="layout/footer :: footer"></div>
 </body>
 </html>
