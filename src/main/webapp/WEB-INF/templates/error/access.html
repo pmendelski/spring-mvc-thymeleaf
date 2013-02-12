@@ -1,0 +1,16 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring3-3.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head th:include="layout/header :: head">
+<title>Exacode bootstrap</title>
+</head>
+<body>
+	<div th:substituteby="layout/header :: header"></div>
+	<p th:text="#{error.access}">access error</p>
+	<div th:if="${!#strings.isEmpty(referrer)}" >
+	<p th:text="#{error.access.tryagain}">Try again:</p>
+	<a href="${referrer}">${referrer}</a>
+	</div>
+	<div th:substituteby="layout/footer :: footer"></div>
+</body>
+</html>

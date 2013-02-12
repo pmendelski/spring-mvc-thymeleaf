@@ -1,0 +1,17 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring3-3.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head th:include="head :: head"></head>
+<body>
+	<footer th:fragment="footer" class="footer">
+		<div class="container">
+			<p>
+				Built with all the love in the world by <a
+					href="http://www.exacode.net">Exacode</a>.
+			</p>
+		</div>
+		<script th:fragment="scripts"
+			src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/js/bootstrap.min.js"></script>
+	</footer>
+</body>
+</html>
