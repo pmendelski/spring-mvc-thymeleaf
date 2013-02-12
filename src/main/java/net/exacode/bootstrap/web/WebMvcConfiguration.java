@@ -2,10 +2,15 @@ package net.exacode.bootstrap.web;
 
 import java.util.Locale;
 
+import net.exacode.bootstrap.web.WebMvcConfiguration.CacheableThymeleafConfiguration;
+import net.exacode.bootstrap.web.WebMvcConfiguration.NonCacheableThymeleafConfiguration;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.Profile;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -21,6 +26,8 @@ import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = "net.exacode.bootstrap.web")
+@Import({ CacheableThymeleafConfiguration.class,
+		NonCacheableThymeleafConfiguration.class })
 public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
 
 	@Bean
@@ -75,15 +82,30 @@ public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
 		registry.addInterceptor(localeChangeInterceptor());
 	}
 
-	@Bean
-	public ServletContextTemplateResolver templateResolver() {
-		ServletContextTemplateResolver resolver = new ServletContextTemplateResolver();
-		resolver.setPrefix("/WEB-INF/templates/");
-		resolver.setSuffix(".html");
-		resolver.setTemplateMode("HTML5");
-		resolver.setOrder(2);
-		resolver.setCacheable(false);
-		return resolver;
+	@Configuration
+	@Profile({ ApplicationProfiles.PRODUCTION })
+	static class CacheableThymeleafConfiguration {
+		@Bean
+		public ServletContextTemplateResolver templateResolver() {
+			ServletContextTemplateResolver resolver = new NonCacheableThymeleafConfiguration()
+					.templateResolver();
+			resolver.setCacheable(true);
+			return resolver;
+		}
+	}
+
+	@Configuration
+	@Profile({ ApplicationProfiles.TEST, ApplicationProfiles.DEVELOPMENT })
+	static class NonCacheableThymeleafConfiguration {
+		@Bean
+		public ServletContextTemplateResolver templateResolver() {
+			ServletContextTemplateResolver resolver = new ServletContextTemplateResolver();
+			resolver.setPrefix("/WEB-INF/templates/");
+			resolver.setSuffix(".html");
+			resolver.setTemplateMode("HTML5");
+			resolver.setCacheable(false);
+			return resolver;
+		}
 	}
 
 }
