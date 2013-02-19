@@ -1,0 +1,54 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring3-3.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
+<head th:include="head :: head"></head>
+<body>
+	<form class="form-horizontal" action="#" th:action="@{login}"
+		method="post">
+		<!-- 
+		Params: 
+		* label - field label
+		* name - field name, used for validation and tagging 
+		-->
+		<div layout:fragment="text-field">
+			<div class="control-group"
+				th:classappend="${#fields.hasErrors('__${name}__')} ? ' error '">
+				<label class="control-label" for="__${name}__" th:text="${label}">Email:</label>
+				<div class="controls">
+					<input type="text" th:field="*{__${name}__}" /> <span
+						class="help-block" th:if="${#fields.hasErrors('__${name}__')}"
+						th:errors="*{__${name}__}">Incorrect input</span>
+				</div>
+			</div>
+		</div>
+		<!-- 
+		Params: 
+		* messages - list of messages
+		* messageType - messaage type (error, success, info, warning)
+		* wide - optional flag. Set it to true to make message box wider.
+		-->
+		<div layout:fragment="messages">
+			<div th:if="${not #lists.isEmpty(messages)}"
+				class="control-group " th:classappend="${not #strings.isEmpty('messageType')} ?  ${messageType}">
+				<div th:attr="class=${#bools.isTrue(wide)} ? ' a ' : 'controls'">
+					<ul class="help-block">
+						<li th:each="message : ${messages}" th:text="#{__${message}__}">Message</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<!-- 
+		Params: 
+		* label - field label
+		-->
+		<div layout:fragment="submit">
+			<div class="control-group">
+				<div class="controls">
+					<button type="submit" name="save" th:text="${label}">Submit</button>
+				</div>
+			</div>
+		</div>
+	</form>
+</body>
+</html>

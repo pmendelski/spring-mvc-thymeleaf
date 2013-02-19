@@ -1,0 +1,30 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring3-3.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="layout/template">
+<body>
+	<div class="container">
+		<section layout:fragment="content">
+			<div class="hero-unit pagination-centered">
+				<h1 th:text="#{hello}">Login</h1>
+				<p>Example login form</p>
+			</div>
+
+			<h3>Example form</h3>
+			<p>Validation rules
+			<ul>
+				<li>Simple email regex validation</li>
+				<li>Business validation. Cannot use: john@gmail.com</li>
+			</ul>
+			</p>
+			<form class="form-horizontal" action="#" th:action="@{login}"
+				th:object="${loginViewModel}" method="post">
+				<div layout:include="layout/form :: text-field" th:with="name='email', label=#{login.email}"/>
+				<div layout:include="layout/form :: messages" th:with="messages=${businessErrors}, messageType='error'"/>
+				<div layout:include="layout/form :: submit" th:with="label=#{login.submit}"/>
+			</form>
+		</section>
+	</div>
+</body>
+</html>

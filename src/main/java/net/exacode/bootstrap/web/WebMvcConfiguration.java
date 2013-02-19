@@ -1,9 +1,12 @@
 package net.exacode.bootstrap.web;
 
+import java.util.HashSet;
 import java.util.Locale;
+import java.util.Set;
 
 import net.exacode.bootstrap.web.WebMvcConfiguration.CacheableThymeleafConfiguration;
 import net.exacode.bootstrap.web.WebMvcConfiguration.NonCacheableThymeleafConfiguration;
+import nz.net.ultraq.web.thymeleaf.LayoutDialect;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -19,7 +22,9 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
+import org.thymeleaf.dialect.IDialect;
 import org.thymeleaf.spring3.SpringTemplateEngine;
+import org.thymeleaf.spring3.dialect.SpringStandardDialect;
 import org.thymeleaf.spring3.view.ThymeleafViewResolver;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 
@@ -31,11 +36,20 @@ import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
 
 	@Bean
+	public Set<IDialect> thymeleafDialects() {
+		Set<IDialect> dialects = new HashSet<IDialect>();
+		dialects.add(new SpringStandardDialect());
+		dialects.add(new LayoutDialect());
+		return dialects;
+	}
+
+	@Bean
 	@Autowired
 	public SpringTemplateEngine templateEngine(
 			ServletContextTemplateResolver templateResolver) {
 		SpringTemplateEngine engine = new SpringTemplateEngine();
 		engine.setTemplateResolver(templateResolver);
+		engine.setDialects(thymeleafDialects());
 		return engine;
 	}
 

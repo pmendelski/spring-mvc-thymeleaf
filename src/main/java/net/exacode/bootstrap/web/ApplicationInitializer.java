@@ -49,7 +49,7 @@ public class ApplicationInitializer implements WebApplicationInitializer {
 	private void registerServlets(ServletContext servletContext,
 			AnnotationConfigWebApplicationContext rootContext) {
 		ServletRegistration.Dynamic springDispatcher = servletContext
-				.addServlet("DispatcherServlet", new DispatcherServlet(
+				.addServlet("SpringDispatcherServlet", new DispatcherServlet(
 						rootContext));
 		springDispatcher.setLoadOnStartup(1);
 		springDispatcher.addMapping("/");
