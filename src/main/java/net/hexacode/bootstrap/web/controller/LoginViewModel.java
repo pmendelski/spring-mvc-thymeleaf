@@ -1,4 +1,4 @@
-package net.exacode.bootstrap.web.controller;
+package net.hexacode.bootstrap.web.controller;
 
 import org.hibernate.validator.constraints.Email;
 

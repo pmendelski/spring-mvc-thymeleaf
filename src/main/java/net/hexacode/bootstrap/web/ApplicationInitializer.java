@@ -1,4 +1,4 @@
-package net.exacode.bootstrap.web;
+package net.hexacode.bootstrap.web;
 
 import java.io.IOException;
 import java.util.Arrays;

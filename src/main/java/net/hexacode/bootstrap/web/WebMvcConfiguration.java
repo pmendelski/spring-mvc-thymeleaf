@@ -1,11 +1,11 @@
-package net.exacode.bootstrap.web;
+package net.hexacode.bootstrap.web;
 
 import java.util.HashSet;
 import java.util.Locale;
 import java.util.Set;
 
-import net.exacode.bootstrap.web.WebMvcConfiguration.CacheableThymeleafConfiguration;
-import net.exacode.bootstrap.web.WebMvcConfiguration.NonCacheableThymeleafConfiguration;
+import net.hexacode.bootstrap.web.WebMvcConfiguration.CacheableThymeleafConfiguration;
+import net.hexacode.bootstrap.web.WebMvcConfiguration.NonCacheableThymeleafConfiguration;
 import nz.net.ultraq.web.thymeleaf.LayoutDialect;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +30,7 @@ import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = "net.exacode.bootstrap.web")
+@ComponentScan(basePackages = "net.hexacode.bootstrap.web")
 @Import({ CacheableThymeleafConfiguration.class,
 		NonCacheableThymeleafConfiguration.class })
 public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
